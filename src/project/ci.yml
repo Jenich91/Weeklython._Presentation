@@ -1,0 +1,23 @@
+# Предварительно устанавливаем на локальную машину пакеты pylint и pytest
+
+stages:
+  - linter
+  - test
+
+Codestyle-job:
+  stage: linter
+  tags:
+    - build
+  script:
+    - pylint *.py
+  allow_failure: false
+
+Testing-job:
+  stage: test
+  tags:
+    - build
+  script:
+    - pytest tests.py
+  after_script:
+  needs: ["Codestyle-job"]
+  allow_failure: false

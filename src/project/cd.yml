@@ -1,0 +1,15 @@
+# Перед деплоем предварительно на локальной машине устанавливаем heroku-cli, python-getting-started с репы Heroku и выполняем команду <heroku create>.
+# Далее создаем файл запуска бота Procfile и файл с зависимостями проекта requirements.txt.
+
+stages:
+  - deploy
+
+Deploy-job:
+  stage: deploy
+  tags:
+    - build
+  script:
+    - git push heroku develop
+  needs: ["Codestyle-job", "Testing-job"]
+  allow_failure: false
+  when: manual
